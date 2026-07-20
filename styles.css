@@ -170,7 +170,7 @@ a { color: inherit; }
 :root[data-theme="dark"] .icon-sun { display: none; }
 :root[data-theme="dark"] .icon-moon { display: block; }
 
-/* ---------- ambient orb ---------- */
+/* ---------- ambient orbs ---------- */
 
 .ambient {
   position: fixed;
@@ -182,24 +182,45 @@ a { color: inherit; }
 
 .orb {
   position: absolute;
-  top: -18vmax;
-  right: -12vmax;
-  width: 55vmax;
-  height: 55vmax;
   border-radius: 50%;
-  background: radial-gradient(circle at 42% 40%,
-    var(--phase-deep) 0%,
-    var(--phase) 42%,
-    transparent 72%);
-  filter: blur(70px);
-  opacity: var(--ambient-opacity);
+  filter: blur(80px);
   transition: background 1s var(--ease), opacity 0.8s var(--ease);
-  animation: drift 22s ease-in-out infinite alternate;
 }
 
-@keyframes drift {
+.orb-1 {
+  top: -15vmax;
+  right: -10vmax;
+  width: 55vmax;
+  height: 55vmax;
+  background: radial-gradient(circle at 42% 40%,
+    var(--phase-deep) 0%,
+    var(--phase) 45%,
+    transparent 72%);
+  opacity: var(--ambient-opacity);
+  animation: drift-1 24s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  bottom: -15vmax;
+  left: -12vmax;
+  width: 50vmax;
+  height: 50vmax;
+  background: radial-gradient(circle at 55% 55%,
+    var(--phase) 0%,
+    var(--phase-deep) 50%,
+    transparent 75%);
+  opacity: calc(var(--ambient-opacity) * 0.7);
+  animation: drift-2 28s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift-1 {
   from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(-6vmax, 5vmax) scale(1.12); }
+  to   { transform: translate(-6vmax, 6vmax) scale(1.1); }
+}
+
+@keyframes drift-2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(7vmax, -5vmax) scale(1.15); }
 }
 
 /* ---------- layout & routing ---------- */
