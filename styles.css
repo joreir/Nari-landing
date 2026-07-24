@@ -266,13 +266,15 @@ main {
   width: clamp(200px, 40vw, 300px);
   aspect-ratio: 1;
   margin: 0 auto 0.5rem;
+  display: grid;
+  place-items: center;
 }
 
 .hero-orb {
   position: absolute;
   inset: 6%;
   border-radius: 50%;
-  background: radial-gradient(circle at 45% 38%,
+  background: radial-gradient(circle at 50% 50%,
     var(--phase-deep) 0%,
     var(--phase) 48%,
     transparent 74%);
@@ -288,18 +290,16 @@ main {
 }
 
 .moth {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
+  z-index: 1;
   width: 64%;
   height: 64%;
-  transform: translate(-50%, -50%);
   animation: hover-float 7s ease-in-out infinite;
 }
 
 @keyframes hover-float {
-  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-  50%      { transform: translate(-50%, -50%) translateY(-8px); }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
 .moth-lines path, .moth-lines ellipse {
