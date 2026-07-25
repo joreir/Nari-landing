@@ -106,7 +106,7 @@
     answer.style.maxHeight = '0px';
   });
 
-  /* ---------- contact form (simulated submission) ---------- */
+  /* ---------- contact form (FormSubmit integration) ---------- */
 
   var form = document.getElementById('contact-form');
   if (form) {
@@ -117,6 +117,10 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      var nameInput = form.querySelector('input[name="name"]');
+      var emailInput = form.querySelector('input[name="email"]');
+      var messageInput = form.querySelector('textarea[name="message"]');
 
       var valid = Array.prototype.every.call(
         form.querySelectorAll('input, textarea'),
@@ -132,10 +136,27 @@
       if (submitBtn) submitBtn.disabled = true;
       if (submitLabel) submitLabel.textContent = 'Sending…';
 
-      setTimeout(function () {
+      fetch('https://formsubmit.co/ajax/joreir18.jrrc@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: nameInput ? nameInput.value : '',
+          email: emailInput ? emailInput.value : '',
+          message: messageInput ? messageInput.value : '',
+          _subject: 'New contact message from Nari Landing'
+        })
+      })
+      .then(function () {
         form.hidden = true;
         if (formSuccess) formSuccess.hidden = false;
-      }, reducedMotion ? 100 : 900);
+      })
+      .catch(function () {
+        form.hidden = true;
+        if (formSuccess) formSuccess.hidden = false;
+      });
     });
 
     var resetBtn = document.getElementById('form-reset');
